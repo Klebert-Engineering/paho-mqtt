@@ -15,6 +15,12 @@ if (WIN32)
   else()
     message(FATAL_ERROR "32bit version of the paho lib is not present.")
   endif()
-else () 
-    message(FATAL_ERROR "Platform not yet supported.")
+else () # Linux 
+    set (paho_mqtt_base_dir ${CMAKE_CURRENT_SOURCE_DIR}/linux_gcc64)
+    set_target_properties (${PROJECT_NAME}
+        PROPERTIES
+        IMPORTED_LOCATION ${paho_mqtt_base_dir}/lib/libpaho-mqtt3a.so
+        INTERFACE_INCLUDE_DIRECTORIES ${paho_mqtt_base_dir}/include
+    )
+    configure_file(${paho_mqtt_base_dir}/lib/libpaho-mqtt3a.so ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COPYONLY)
 endif ()
