@@ -1,11 +1,11 @@
 cmake_minimum_required (VERSION 3.5.0 FATAL_ERROR)
-project (paho-mqtt)
-add_library (${PROJECT_NAME} SHARED IMPORTED GLOBAL)
 
 if (WIN32)
+  project (paho-mqtt)
+  add_library (${PROJECT_NAME}3a SHARED IMPORTED GLOBAL)
   if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     set (paho_mqtt_base_dir ${CMAKE_CURRENT_SOURCE_DIR}/msvc2015_x64)
-    set_target_properties (${PROJECT_NAME}
+    set_target_properties (${PROJECT_NAME}3a
         PROPERTIES
         IMPORTED_LOCATION ${paho_mqtt_base_dir}/lib/paho-mqtt3a.dll
         IMPORTED_IMPLIB ${paho_mqtt_base_dir}/lib/paho-mqtt3a.lib
@@ -16,11 +16,5 @@ if (WIN32)
     message(FATAL_ERROR "32bit version of the paho lib is not present.")
   endif()
 else () # Linux 
-    set (paho_mqtt_base_dir ${CMAKE_CURRENT_SOURCE_DIR}/linux_gcc64)
-    set_target_properties (${PROJECT_NAME}
-        PROPERTIES
-        IMPORTED_LOCATION ${paho_mqtt_base_dir}/lib/libpaho-mqtt3a.so
-        INTERFACE_INCLUDE_DIRECTORIES ${paho_mqtt_base_dir}/include
-    )
-    configure_file(${paho_mqtt_base_dir}/lib/libpaho-mqtt3a.so ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COPYONLY)
+	add_subdirectory (paho.mqtt.c)
 endif ()
