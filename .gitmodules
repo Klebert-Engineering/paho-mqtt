@@ -1,3 +1,3 @@
 [submodule "paho.mqtt.c"]
 	path = paho.mqtt.c
-	url = git@github.com:Klebert-Engineering/paho.mqtt.c.git
+	url = ../paho.mqtt.c.git
